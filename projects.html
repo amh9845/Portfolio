@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Projects - Ahmad Airways</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">AHMAD AIRWAYS</div>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="projects.html" class="nav-item active">Projects</a>
+      <a href="experience.html" class="nav-item">Experience</a>
+      <a href="contact.html" class="nav-item">Contact</a>
+    </nav>
+  </header>
+
+  <!-- POPUP -->
+  <div class="popup" id="startPopup">
+    <p>Use ← and → to move the plane. Press Space to stop at glowing landing pads.<br>
+    Then click the gate to board a project.</p>
+    <button onclick="startGame()">⬅️➡️ Understood</button>
+  </div>
+
+  <!-- SOUND TOGGLE -->
+  <img id="volume-toggle" src="assets/icons/volume-icon.png" alt="Toggle Sound">
+
+  <!-- RUNWAY + GATES -->
+   <div class="runway-container" id="runway-container">
+    <div class="runway" id="runway">
+            <!-- PLANE -->
+      <img src="assets/images/plane-side2.png" id="project-plane" class="plane" />
+
+      <!-- Gates (aligned horizontally) -->
+      <a href="https://amh9845.github.io/30MFF-Website/" target="_blank">
+        <div class="gate" style="left: 600px;">
+          <div class="label">A1 – 30MFF Project</div>
+          <img src="assets/images/gate.png" />
+          <div class="landing-pad"></div>
+        </div>
+      </a>
+
+      <a href="https://enockmagara.github.io/comic/" target="_blank">
+        <div class="gate" style="left: 1400px;">
+          <div class="label">A2 – Comic Project</div>
+          <img src="assets/images/gate.png" />
+          <div class="landing-pad"></div>
+        </div>
+      </a>
+
+      <a href="https://mahlet333.github.io/Sound_temptation/" target="_blank">
+        <div class="gate" style="left: 2200px;">
+          <div class="label">A3 – Sound Project</div>
+          <img src="assets/images/gate.png" />
+          <div class="landing-pad"></div>
+        </div>
+      </a>
+
+      <a href="https://mha9507.github.io/Assignment-4/" target="_blank">
+        <div class="gate" style="left: 3000px;">
+          <div class="label">A4 – Video Project</div>
+          <img src="assets/images/gate.png" />
+          <div class="landing-pad"></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="crew-audio" src="assets/audio/cabin-crew.mp3" preload="auto" playsinline></audio>
+  <audio id="captain-audio" src="assets/audio/captain.mp3" preload="auto" playsinline></audio>
+
+
+  <!-- SCRIPT -->
+  <script>
+  const plane = document.getElementById("project-plane");
+  const runwayContainer = document.getElementById("runway-container");
+  const pads = document.querySelectorAll(".landing-pad");
+  const volumeIcon = document.getElementById("volume-toggle");
+  const audio1 = document.getElementById("crew-audio");
+  const audio2 = document.getElementById("captain-audio");
+
+  let isMuted = false;
+  let planeX = 100;
+
+  // ✅ Mute/Unmute Logic
+  volumeIcon.addEventListener("click", () => {
+    isMuted = !isMuted;
+    audio1.muted = isMuted;
+    audio2.muted = isMuted;
+    volumeIcon.style.opacity = isMuted ? 0.4 : 1;
+  });
+
+  // ✅ Play second sound after first finishes
+  audio1.onended = () => {
+    if (!isMuted) audio2.play();
+  };
+
+  // ✅ Start game (hide popup + play sound)
+  function startGame() {
+    document.getElementById("startPopup").style.display = "none";
+    audio1.play();
+  }
+
+  // ✅ Key controls
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") {
+      planeX += 10;
+    } else if (e.key === "ArrowLeft") {
+      planeX -= 10;
+    }
+
+    // Clamp within bounds
+    planeX = Math.max(0, Math.min(planeX, 6000 - 400));
+    plane.style.left = `${planeX}px`;
+
+    // ✅ Smooth camera follow (fix delay before scroll)
+    runwayContainer.scrollLeft = Math.max(0, planeX - window.innerWidth / 2 + 190);
+
+    // Glow detection
+    pads.forEach((pad) => {
+      const padRect = pad.getBoundingClientRect();
+      const planeRect = plane.getBoundingClientRect();
+      const overlap =
+        Math.abs(padRect.left + padRect.width / 2 - (planeRect.left + planeRect.width / 2)) < 60;
+      pad.classList.toggle("glow", overlap);
+    });
+
+    // Spacebar to open glowing gate
+    if (e.key === " ") {
+      pads.forEach((pad) => {
+        if (pad.classList.contains("glow")) {
+          const parentLink = pad.closest("a");
+          if (parentLink) window.open(parentLink.href, "_blank");
+        }
+      });
+    }
+  });
+</script>
+
+
+</html>

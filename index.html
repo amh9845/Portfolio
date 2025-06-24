@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ahmad Airways</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+   <div id="loader">
+    <img src="./assets/images/plane-side.png" alt="Plane" class="plane-image">
+    <div class="loading-text">Now Boarding… <span id="progress">0%</span></div>
+    <div class="loading-bar">
+    <div class="bar-fill" id="bar-fill"></div>
+</div>
+</div>
+
+  <!-- ✅ Navbar -->
+  <header class="navbar">
+    <div class="logo">AHMAD AIRWAYS</div>
+    <nav class="nav-links">
+      <a href="home.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="projects.html" class="nav-item">Projects</a>
+      <a href="experience.html" class="nav-item">Experience</a>
+      <a href="contact.html" class="nav-item">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ✅ Main Content -->
+   <main id="home" class="homepage">
+    <div class="hero-text">
+    <h1>WELCOME ABOARD<br>AHMAD AIRWAYS</h1>
+    <p>Prepare for takeoff into my creative journey</p>
+  </div>
+  <button id="board-btn">Board Flight</button>
+  <img id="plane" src="assets/images/plane-front.png" alt="Plane on Runway" class="hidden">
+</main>
+
+  <script src="script.js"></script>
+<script>
+  const boardBtn = document.getElementById("board-btn");
+  const plane = document.getElementById("plane");
+
+  boardBtn.addEventListener("click", () => {
+    plane.classList.remove("hidden");
+    boardBtn.style.display = "none"; // ✅ hides the button
+
+    // ✅ Wait 10 seconds, then stop the animation
+    setTimeout(() => {
+      plane.style.animation = "none";     // stop the animation
+      plane.style.opacity = "1";          // make sure it's visible
+    }, 10000); // 10 seconds = 10,000 ms
+  });
+</script>
+</script>
+</body>
+</html>

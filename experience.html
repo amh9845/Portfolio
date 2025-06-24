@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Experience - Ahmad Airways</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('assets/images/lined-paper-background.png') fixed;
+      background-size: cover;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+   .experience-wrapper {
+  padding: 10px 20px 100px;
+}
+
+    .entry {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 35px 40px;
+      border-radius: 14px;
+      margin-bottom: 60px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .entry.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .entry .date {
+      font-weight: bold;
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    .entry .title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 0 0 6px;
+      color: #111;
+    }
+
+    .entry .location {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    #volume-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      z-index: 1500;
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+          .page-title {
+    text-align: center;
+    font-size: 2.4rem;
+    color: #222;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+  }
+
+    </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">AHMAD AIRWAYS</div>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="projects.html" class="nav-item">Projects</a>
+      <a href="experience.html" class="nav-item active">Experience</a>
+      <a href="contact.html" class="nav-item">Contact</a>
+    </nav>
+  </header>
+
+  <!-- EXPERIENCE CONTENT -->
+  <h1 class="page-title">Flight History</h1>
+    <div class="experience-wrapper">
+
+    <div class="entry">
+      <div class="date">Jan 2025 – Present</div>
+      <div class="title">Project Specialist</div>
+      <div class="location">DIFC – Strategic Initiatives Department</div>
+    </div>
+
+    <div class="entry">
+      <div class="date">Feb 2024 – Dec 2024</div>
+      <div class="title">Conference Producer</div>
+      <div class="location">DIFC – Content & Production Department</div>
+    </div>
+
+    <div class="entry">
+      <div class="date">Sep 2022 – Dec 2023</div>
+      <div class="title">Facilitator – Youth Leadership Network</div>
+      <div class="location">NYU Abu Dhabi</div>
+    </div>
+
+    <div class="entry">
+      <div class="date">May 2023 – Sep 2023</div>
+      <div class="title">Participant – UAE Student Challenge</div>
+      <div class="location">Abu Dhabi Global Market (ADGM)</div>
+    </div>
+
+    <div class="entry">
+      <div class="date">Jan 2022 – Feb 2023</div>
+      <div class="title">Airport Service Agent</div>
+      <div class="location">DXB Terminal 3 – Customer Service</div>
+    </div>
+
+  </div>
+
+  <!-- VOLUME ICON -->
+  <img id="volume-toggle" src="assets/icons/volume-icon.png" alt="Toggle Sound">
+
+  <!-- AUDIO FILE -->
+  <audio id="crew-audio" src="assets/audio/captain2.mp3" preload="auto" playsinline loop></audio>
+
+  <script>
+    const volumeIcon = document.getElementById("volume-toggle");
+    const audio1 = document.getElementById("crew-audio");
+    let isMuted = false;
+
+    // Mute/Unmute toggle
+    volumeIcon.addEventListener("click", () => {
+      isMuted = !isMuted;
+      audio1.muted = isMuted;
+      volumeIcon.style.opacity = isMuted ? 0.4 : 1;
+    });
+
+    // Start playing audio when page loads
+    window.addEventListener("load", () => {
+      audio1.play();
+    });
+
+    // Scroll animation with IntersectionObserver
+    const entries = document.querySelectorAll(".entry");
+    const observer = new IntersectionObserver((entriesObs) => {
+      entriesObs.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    entries.forEach(entry => {
+      observer.observe(entry);
+    });
+  </script>
+</body>
+</html>

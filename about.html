@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Ahmad Airways</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* ✅ Main About Section */
+    .about-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .about-img {
+      width: 95%;
+      max-width: 1100px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ✅ Volume Icon */
+    #volume-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 2000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <header class="navbar">
+    <div class="logo">AHMAD AIRWAYS</div>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="projects.html" class="nav-item">Projects</a>
+      <a href="experience.html" class="nav-item">Experience</a>
+      <a href="contact.html" class="nav-item">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ✅ About Content -->
+  <main class="about-section">
+    <img src="assets/images/boarding-pass.png" alt="Ahmad Hijazi Boarding Pass" class="about-img">
+  </main>
+
+  <!-- ✅ Audio -->
+  <audio id="bg-audio" src="assets/audio/boarding-music.mp3" autoplay loop></audio>
+  <img id="volume-toggle" src="assets/icons/volume-icon.png" alt="Toggle Sound">
+
+  <!-- ✅ JavaScript -->
+  <script>
+    const audio = document.getElementById("bg-audio");
+    const volumeIcon = document.getElementById("volume-toggle");
+
+    let isMuted = false;
+
+    volumeIcon.addEventListener("click", () => {
+      isMuted = !isMuted;
+      audio.muted = isMuted;
+      volumeIcon.style.opacity = isMuted ? 0.4 : 1;
+    });
+  </script>
+
+</body>
+</html>
